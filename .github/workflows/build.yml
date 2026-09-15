@@ -1,3 +1,4 @@
+
 name: Build Android APK
 
 on:
@@ -14,20 +15,20 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential libsqlite3-dev sqlite3 bzip2 libbz2-dev zlib1g-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev liblldb-dev libffi-dev git unzip openjdk-17-jdk
+          sudo apt-get install -y build-essential libffi-dev python3-dev
           pip install --upgrade pip
           pip install buildozer cython==0.29.33
 
-      - name: Build APK with Buildozer
+      - name: Build with Buildozer
         run: |
-          yes | buildozer -v android debug
+          buildozer -v android debug
 
-      - name: Upload APK
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: K-Nodi-APK
